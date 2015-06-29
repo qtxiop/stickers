@@ -52,13 +52,35 @@ var manager =
 	{
 		if((window.location.hostname + window.location.pathname) == sticker.url)
 		{
+			var box = window.document.createElement('div');
+				box.className = 'sticker_box';
+				box.style.left = sticker.x + 'px';
+				box.style.top = sticker.y + 'px';
+				box.style.zIndex = manager.zIndexMax + 1;
+
 			var textarea = window.document.createElement('textarea');
 				textarea.className = 'sticker';
-				textarea.innerHTML = window.location.hostname + window.location.pathname;// sticker.content;
-				textarea.style.left = sticker.x + 'px';
-				textarea.style.top = sticker.y + 'px';
-				textarea.style.zIndex = manager.zIndexMax + 1;
-			window.document.body.appendChild(textarea);
+				textarea.innerHTML = sticker.content;
+
+			box.ondblclick = function()
+			{
+				//textarea.value = box.innerHTML;
+				textarea.style.display = 'block';
+			};
+
+			textarea.onkeydown = function()
+			{
+				//box.innerHTML = textarea.value;
+			};
+
+			textarea.onmouseout = function()
+			{
+				box.innerHTML = textarea.value;
+				textarea.style.display = 'none';
+			};
+
+			window.document.body.appendChild(box);
+			box.appendChild(textarea);
 		};
 	},
 

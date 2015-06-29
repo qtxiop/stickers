@@ -1,4 +1,36 @@
+div.sticker_box
+{
+	background: #fff;
+	height: 1em;
+	border-radius: 50%;
+	box-shadow: 0 0 0.1em 0 rgba(0, 0, 0, 0.2);
+	font-family: Arial;
+	overflow: hidden;
+	padding: 0.5%;
+	position: absolute;
+	text-overflow: clip;
+	transition-duration: 0.5s;
+	transition-property: all;
+	width: 1em;
+}
+
+div.sticker_box:hover
+{
+	border-radius: 0;
+	box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2);
+	height: 10em;
+	width: 10em;
+}
+
 textarea.sticker
 {
-	position: absolute;
+	border: none;
+	display: none;
+	font-family: Arial;
+	height: 100%;
+	margin: 0;
+	outline: none;
+	padding: 0;
+	resize: none;
+	width: 100%;
 }
