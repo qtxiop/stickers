@@ -7,8 +7,33 @@ var Sticker = function(content, url, x, y)
 	var sticker =
 	{
 		content: content,
+
+		default:
+		{
+			height: 1,
+			width: 1
+		},
+
+		height: 10,
+
+		open: function(object)
+		{
+			object.style.height = this.height + 'em';
+			object.style.width = this.width + 'em';
+		},
+
+		turn: function(object)
+		{
+			object.style.height = this.default.height + 'em';
+			object.style.width = this.default.width + 'em';
+		},
+
 		url: url,
+
+		width: 10,
+
 		x: x,
+
 		y: y
 	};
 	return sticker;
@@ -54,6 +79,7 @@ var manager =
 		{
 			var box = window.document.createElement('div');
 				box.className = 'sticker_box';
+				box.draggable = true;
 				box.style.left = sticker.x + 'px';
 				box.style.top = sticker.y + 'px';
 				box.style.zIndex = manager.zIndexMax + 1;
@@ -61,22 +87,35 @@ var manager =
 			var textarea = window.document.createElement('textarea');
 				textarea.className = 'sticker';
 				textarea.innerHTML = sticker.content;
+				textarea.readOnly = true;
 
-			box.ondblclick = function()
+			box.ondragend = function()
 			{
-				//textarea.value = box.innerHTML;
-				textarea.style.display = 'block';
+				sticker.x = event.x;
+				sticker.y = event.y;
+
+				box.removeChild(textarea);
+				box.parentElement.removeChild(box);
+
+				manager.show(sticker);
+			};
+
+			box.onmouseout = function()
+			{
+				sticker.turn(box);
+				textarea.readOnly = true;
+			};
+
+			box.onmouseover = function()
+			{
+				sticker.open(box);
+				textarea.readOnly = false;
 			};
 
 			textarea.onkeydown = function()
 			{
-				//box.innerHTML = textarea.value;
-			};
-
-			textarea.onmouseout = function()
-			{
-				box.innerHTML = textarea.value;
-				textarea.style.display = 'none';
+				sticker.open(box);
+				sticker.content = textarea.value;
 			};
 
 			window.document.body.appendChild(box);

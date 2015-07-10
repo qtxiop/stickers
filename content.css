@@ -25,11 +25,11 @@ div.sticker_box:hover
 textarea.sticker
 {
 	border: none;
-	display: none;
 	font-family: Arial;
 	height: 100%;
 	margin: 0;
 	outline: none;
+	overflow: hidden;
 	padding: 0;
 	resize: none;
 	width: 100%;
